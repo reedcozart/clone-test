@@ -1,0 +1,22 @@
+{
+  "name": "ibm-cejn-app",
+  "version": "1.0.0",
+  "description": "IBM Cloudant-Express-JavaScript-Node Application",
+  "config": {
+    "entrypoint": "server/server.js"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devserver": "nodemon server/server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "@cloudant/cloudant": "^4.1.1",
+    "body-parser": "^1.19.0",
+    "cfenv": "^1.2.2",
+    "express": "^4.17.1"
+  }
+}
