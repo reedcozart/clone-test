@@ -73,8 +73,8 @@ objects:
             namespace: "${NAMESPACE}"
             name: "nodejs:${NODEJS_VERSION}"
           env:
-          - name: NPM_MIRROR
-            value: "${NPM_MIRROR}"
+            - name: NPM_MIRROR
+              value: "${NPM_MIRROR}"
       output:
         to:
           kind: ImageStreamTag
@@ -102,36 +102,36 @@ objects:
             kind: ImageStreamTag
             name: "${NAME}:latest"
         - type: ConfigChange
-        replicas: 1
-        selector:
+      replicas: 1
+      selector:
+        name: "${NAME}"
+      template:
+        metadata:
           name: "${NAME}"
-          template:
-            metadata:
-              name: "${NAME}"
-              labels:
-                name: "${NAME}"
-                spec:
-                  containers:
-                    - name: nodejs-ibm-cloudant-test
-                    image: " "
-                    ports:
-                      - containerPort: 3000
-                      readinessProbe:
-                        timeoutSeconds: 3
-                        initialDelaySeconds: 3
-                        httpGet:
-                          path: "/"
-                          port: 3000
-                          livenessProbe:
-                            timeoutSeconds: 3
-                            initialDelaySeconds: 30
-                            httpGet:
-                              path: "/"
-                              port: 3000
-                              resources:
-                                limits:
-                                  memory: "${MEMORY_LIMIT}"
-                                  env: []
+          labels:
+            name: "${NAME}"
+        spec:
+          containers:
+            - name: nodejs-ibm-cloudant-test
+              image: " "
+              ports:
+                - containerPort: 3000
+          readinessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 3
+            httpGet:
+              path: "/"
+              port: 3000
+          livenessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 30
+            httpGet:
+              path: "/"
+              port: 3000
+          resources:
+            limits:
+              memory: "${MEMORY_LIMIT}"
+          env: []
 parameters:
   - name: NAME
     displayName: Name
